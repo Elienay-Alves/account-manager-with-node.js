@@ -18,7 +18,7 @@ const operation = () => {
     if (action === 'Criar Conta') {
       createAccount();
     } else if (action === 'Depositar') {
-
+      deposit();
     } else if (action === 'Consultar Saldo') {
       
     } else if (action === 'Sacar') {
@@ -66,4 +66,32 @@ const buildAccount = () => {
   }).catch((err) => console.log(err));
 };
 
+// add an amount to user account
+
+const deposit = () => {
+  inquirer.prompt([
+    {
+      name: 'accountName',
+      message: 'Qual o nome da sua conta',
+    },
+  ])
+  .then((answer) => {
+    const { accountName } = answer;
+
+    // verify if account exist
+    if (!checkAccounts(accountName)) {
+      return deposit();
+    }
+  })
+  .catch((err) => console.log(err));
+};
+
+const checkAccounts = (accountName) => {
+  if (!fs.existsSync(`src/accounts/${accountName}.json`)) {
+    console.log(chalk.bgRed.black('Esta conta não existe, escolha outro nome!'));
+    return false;
+  }
+
+  return true;
+};
 module.exports = buildAccount;
