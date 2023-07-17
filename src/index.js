@@ -1,9 +1,9 @@
 // external modules
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 
 // internal modules
 const fs = require('fs');
+const createAccount = require('./account/createAccount');
 
 const operation = () => {
   inquirer.prompt([
@@ -22,9 +22,3 @@ const operation = () => {
 };
 
 operation();
-
-// create an account
-const createAccount = () => {
-  console.log(chalk.bgGreen.black('Parabéns por escolher o nosso banco!'));
-  console.log(chalk.green('Defina as opções da sua conta a seguir'));
-};
